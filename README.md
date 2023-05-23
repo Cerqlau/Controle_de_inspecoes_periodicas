@@ -17,7 +17,7 @@ Essas instruções permitirão que você obtenha uma cópia do projeto em opera�
 
 1 - Mantenha a pasta raiz do programa conforme renomeada abaixo afim de evitar erros de destinos.
 
-![pasta raiz](https://github.com/Cerqlau/Controle_de_inspecoes_periodicas/assets/87389666/c13a8389-713d-4e29-aa92-93543be7ed22.jpg)
+![Untitled](https://github.com/Cerqlau/Controle_de_inspecoes_periodicas/assets/87389666/9797c4ff-b922-4228-859d-f5e1fcb0d545.jpg)
 
 2 -  Senha para edição do projeto: "@Teste"
 

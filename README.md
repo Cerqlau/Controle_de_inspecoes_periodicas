@@ -1,6 +1,6 @@
 # Controle de Inspeções Periódicas
 
-Este projeto foi desenvolvido em Visual Basic Aplication para apresentar um sistema de verificação de execução de inspeções rotineiras. Tendo como base que a planilha será utilizada por um usuário e um admininstrador. 
+Este projeto foi desenvolvido em Visual Basic para apresentar um sistema de verificação de execução de inspeções rotineiras. Tendo como base que a planilha será utilizada por um usuário e um admininstrador. 
 
 ## 🚀 Começando
 
@@ -54,7 +54,7 @@ Instagram : laurorcerqueira
 
 ## 🛠️ Construído com
 
-* [VBA] https://learn.microsoft.com/en-us/dotnet/visual-basic/
+* Visual Basic https://learn.microsoft.com/en-us/dotnet/visual-basic/
 
 
 ## 📄 Licença

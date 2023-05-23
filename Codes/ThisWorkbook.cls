@@ -1,0 +1,368 @@
+VERSION 1.0 CLASS
+BEGIN
+  MultiUse = -1  'True
+END
+Attribute VB_Name = "ThisWorkbook"
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = False
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = True
+Private Sub Workbook_BeforeClose(Cancel As Boolean)
+       
+
+'' Sheets("Relatorio ROP").Visible = xlSheetVeryHidden
+
+Call protege_planilha
+Call protege_relatorio
+
+End Sub
+
+Private Sub Workbook_Open()
+Dim contador As Integer
+Dim msg As String
+Dim cont As Integer
+Dim result As VbMsgBoxResult
+
+
+Application.ScreenUpdating = False
+
+Sheets("Relatorio ROP").Visible = xlSheetVisible
+
+Call desprotege_relatorio
+
+result = vbNo
+cont = 0
+
+
+'' verificação para 5 dias
+
+ActiveWorkbook.Sheets("Relatorio ROP").Select
+Range("A4").Select
+Range(Selection, Selection.End(xlDown)).Select
+
+For Each sel In Selection
+contador = contador + 1
+Next
+
+For i = 3 To contador + 3
+
+    If Cells(i + 1, 1).Value <> "" And Cells(i + 1, 1).Value <= Date And IsDate(Cells(i + 1, 2).Value) = False Then
+    
+            cont = cont + 1
+            
+            msg = msg & "--5 dias-->" & CStr(Cells(i + 1, 1).Value) & Chr(13)
+            
+            Cells(i + 1, 2).Value = "Em atraso"
+            
+            Cells(i + 1, 1).Select
+            With Selection.Interior
+            .Pattern = xlSolid
+            .PatternColorIndex = xlAutomatic
+            .Color = 255
+            .TintAndShade = 0
+            .PatternTintAndShade = 0
+        End With
+        With Selection.Font
+            .ThemeColor = xlThemeColorDark1
+            .TintAndShade = 0
+        End With
+        
+    
+    Else
+            Cells(i + 1, 1).Select
+            With Selection.Interior
+            .Pattern = xlNone
+            .TintAndShade = 0
+            .PatternTintAndShade = 0
+        End With
+        With Selection.Font
+            .ColorIndex = xlAutomatic
+            .TintAndShade = 0
+        End With
+    
+    End If
+
+Next i
+
+
+'' verificação para 15 dias
+
+ActiveWorkbook.Sheets("Relatorio ROP").Select
+Range("F4").Select
+Range(Selection, Selection.End(xlDown)).Select
+
+For Each sel In Selection
+contador = contador + 1
+Next
+
+For j = 3 To contador + 3
+    
+     If Cells(j + 1, 6).Value <> "" And Cells(j + 1, 6).Value <= Date And IsDate(Cells(j + 1, 7).Value) = False Then
+    
+            cont = cont + 1
+            
+            msg = msg & "-15 dias-->" & CStr(Cells(j + 1, 6).Value) & Chr(13)
+            
+            Cells(j + 1, 7).Value = "Em atraso"
+            
+            Cells(j + 1, 6).Select
+            With Selection.Interior
+            .Pattern = xlSolid
+            .PatternColorIndex = xlAutomatic
+            .Color = 255
+            .TintAndShade = 0
+            .PatternTintAndShade = 0
+        End With
+        With Selection.Font
+            .ThemeColor = xlThemeColorDark1
+            .TintAndShade = 0
+        End With
+        
+    
+    Else
+            Cells(j + 1, 6).Select
+            With Selection.Interior
+            .Pattern = xlNone
+            .TintAndShade = 0
+            .PatternTintAndShade = 0
+        End With
+        With Selection.Font
+            .ColorIndex = xlAutomatic
+            .TintAndShade = 0
+        End With
+    
+    End If
+
+Next j
+
+
+'' verificação Mensal
+
+ActiveWorkbook.Sheets("Relatorio ROP").Select
+Range("K2").Select
+Range(Selection, Selection.End(xlDown)).Select
+
+For Each sel In Selection
+contador = contador + 1
+Next
+
+For Z = 3 To contador + 3
+    
+   If Cells(Z + 1, 11).Value <> "" And Cells(Z + 1, 11).Value <= Date And IsDate(Cells(Z + 1, 12).Value) = False Then
+    
+            cont = cont + 1
+            
+            msg = msg & "-Mensal-->" & CStr(Cells(Z + 1, 11).Value) & Chr(13)
+            
+            Cells(Z + 1, 12).Value = "Em atraso"
+            
+            Cells(Z + 1, 11).Select
+            With Selection.Interior
+            .Pattern = xlSolid
+            .PatternColorIndex = xlAutomatic
+            .Color = 255
+            .TintAndShade = 0
+            .PatternTintAndShade = 0
+        End With
+        With Selection.Font
+            .ThemeColor = xlThemeColorDark1
+            .TintAndShade = 0
+        End With
+        
+    
+    Else
+            Cells(Z + 1, 11).Select
+            With Selection.Interior
+            .Pattern = xlNone
+            .TintAndShade = 0
+            .PatternTintAndShade = 0
+        End With
+        With Selection.Font
+            .ColorIndex = xlAutomatic
+            .TintAndShade = 0
+        End With
+    
+    End If
+
+Next Z
+
+ActiveWorkbook.Sheets("Calendario de inspeção 2023").Select
+
+msg2 = "Quantidade de inspeções atrasadas: " & CStr(cont) & Chr(13) & "Datas a serem verficadas: " & Chr(13) & msg & Chr(13) & " Deseja gerar relatório pdf ?"
+
+If cont <> 0 Then
+    result = MsgBox(msg2, vbYesNo)
+Else
+    msg2 = "Não há inspeções em atraso" & Chr(13) & "Deseja gerar relatório pdf ?"
+    result = MsgBox(msg2, vbYesNo)
+End If
+
+
+If result = vbYes Then
+
+    ActiveWorkbook.Sheets("Relatorio ROP").Select
+    
+    Dim nome As String
+    
+    nome = "Relatório_de_inspeções_" & CStr(Date)
+    
+    Call Imprimir_pdf
+    
+    ActiveWorkbook.Sheets("Calendario de inspeção 2023").Select
+
+End If
+
+Call protege_relatorio
+
+ActiveWorkbook.Sheets("Calendario de inspeção 2023").Select
+
+
+
+''Esconder as planilhas de inspeção para evitar alteração
+
+Sheets("5 dias").Visible = xlSheetVeryHidden
+Sheets("Quinzenal").Visible = xlSheetVeryHidden
+Sheets("Mensal").Visible = xlSheetVeryHidden
+
+End Sub
+
+Private Sub Imprimir_pdf()
+
+On Error GoTo Erro
+    
+
+    Application.PrintCommunication = False
+    With ActiveSheet.PageSetup
+        .PrintTitleRows = ""
+        .PrintTitleColumns = ""
+    End With
+    Application.PrintCommunication = True
+    ActiveSheet.PageSetup.PrintArea = ""
+    Application.PrintCommunication = False
+    With ActiveSheet.PageSetup
+        .LeftHeader = ""
+        .CenterHeader = ""
+        .RightHeader = ""
+        .LeftFooter = ""
+        .CenterFooter = ""
+        .RightFooter = ""
+        .LeftMargin = Application.InchesToPoints(0.7)
+        .RightMargin = Application.InchesToPoints(0.7)
+        .TopMargin = Application.InchesToPoints(0.75)
+        .BottomMargin = Application.InchesToPoints(0.75)
+        .HeaderMargin = Application.InchesToPoints(0.3)
+        .FooterMargin = Application.InchesToPoints(0.3)
+        .PrintHeadings = False
+        .PrintGridlines = False
+        .PrintComments = xlPrintNoComments
+        .PrintQuality = 600
+        .CenterHorizontally = False
+        .CenterVertically = False
+        .Orientation = xlPortrait
+        .Draft = False
+        .PaperSize = xlPaperA4
+        .FirstPageNumber = xlAutomatic
+        .Order = xlDownThenOver
+        .BlackAndWhite = False
+        .Zoom = False
+        .FitToPagesWide = 1
+        .FitToPagesTall = 1
+        .PrintErrors = xlPrintErrorsDisplayed
+        .OddAndEvenPagesHeaderFooter = False
+        .DifferentFirstPageHeaderFooter = False
+        .ScaleWithDocHeaderFooter = True
+        .AlignMarginsHeaderFooter = True
+        .EvenPage.LeftHeader.Text = ""
+        .EvenPage.CenterHeader.Text = ""
+        .EvenPage.RightHeader.Text = ""
+        .EvenPage.LeftFooter.Text = ""
+        .EvenPage.CenterFooter.Text = ""
+        .EvenPage.RightFooter.Text = ""
+        .FirstPage.LeftHeader.Text = ""
+        .FirstPage.CenterHeader.Text = ""
+        .FirstPage.RightHeader.Text = ""
+        .FirstPage.LeftFooter.Text = ""
+        .FirstPage.CenterFooter.Text = ""
+        .FirstPage.RightFooter.Text = ""
+    End With
+    Application.PrintCommunication = True
+    ActiveWindow.SelectedSheets.PrintOut , ActivePrinter:="Microsoft Print to PDF", PrintToFile:=True, Copies:=1, Collate:=True, _
+        IgnorePrintAreas:=False
+    Application.WindowState = xlNormal
+    
+Erro:
+
+End Sub
+
+Private Sub protege_relatorio()
+
+On Error GoTo Erro
+
+Application.ScreenUpdating = False
+ActiveWorkbook.Sheets("Relatorio ROP").Select
+Range(Selection, Selection.End(xlToRight)).Select
+Range(Selection, Selection.End(xlDown)).Select
+ActiveWindow.SmallScroll Down:=-21
+Selection.Locked = False
+Selection.FormulaHidden = False
+Range("A1:X37").Select
+Selection.Locked = True
+Selection.FormulaHidden = False
+Range("Y1:AA15").Select
+Selection.Locked = True
+Selection.FormulaHidden = False
+ActiveSheet.Protect DrawingObjects:=True, Contents:=True, Scenarios:=True, Password:="Subsea77"
+Range("B5").Select
+Application.ScreenUpdating = True
+
+Exit Sub
+
+Erro:
+
+End Sub
+
+Private Sub desprotege_relatorio()
+
+Application.ScreenUpdating = False
+ActiveWorkbook.Sheets("Relatorio ROP").Select
+ActiveSheet.Unprotect Password:="Subsea77"
+Application.ScreenUpdating = True
+
+
+End Sub
+
+Private Sub protege_planilha()
+
+On Error GoTo Erro
+
+    Application.ScreenUpdating = False
+    ActiveWorkbook.Sheets("Calendario de inspeção 2023").Select
+    Range(Selection, Selection.End(xlToRight)).Select
+        Range(Selection, Selection.End(xlDown)).Select
+        ActiveWindow.SmallScroll Down:=-21
+        Selection.Locked = False
+        Selection.FormulaHidden = False
+        Range("A1:X37").Select
+        Selection.Locked = True
+        Selection.FormulaHidden = False
+        Range("Y1:AA15").Select
+        Selection.Locked = True
+        Selection.FormulaHidden = False
+        ActiveSheet.Protect DrawingObjects:=True, Contents:=True, Scenarios:=True, Password:="Subsea77"
+        Range("B5").Select
+        Application.ScreenUpdating = True
+        
+Exit Sub
+
+Erro:
+
+End Sub
+
+Private Sub desprotege_planilha()
+Application.ScreenUpdating = False
+ActiveWorkbook.Sheets("Calendario de inspeção 2023").Select
+ActiveSheet.Unprotect Password:="Subsea77"
+Application.ScreenUpdating = True
+
+End Sub
+

@@ -1,0 +1,41 @@
+Private Sub Worksheet_BeforeDoubleClick(ByVal Target As Range, Cancel As Boolean)
+
+'verificação para chamada do formulário em caso de data
+
+On Error GoTo saida 'inibe os demais itens da planilha ignorando o erro
+
+Cancel = True
+
+
+
+If IsDate(Target.Value) = True Then 'verifica se é uma data
+    If Target.Interior.Color = 5296274 Then ' se data verifica se verde
+        UserForm1.Show
+    End If
+    If Target.Interior.Color = 10498160 Then ' se data verifica se roxo
+        UserForm1.Show
+        UserForm2.Show
+    End If
+    If Target.Interior.Color = 15123099 Then  ' se data verifica se roxo
+        UserForm2.Show
+    End If
+    If Target.Interior.Color = 8696052 Then  ' se data verifica se roxo
+        UserForm3.Show
+    End If
+    If Target.Interior.Color = 65535 Then  ' se data verifica se roxo
+        UserForm1.Show
+        UserForm3.Show
+    End If
+    If Target.Interior.Color = 13734634 Then  ' se data verifica se roxo
+        UserForm1.Show
+        UserForm2.Show
+        UserForm3.Show
+    End If
+    
+    
+End If
+
+
+saida:
+
+End Sub

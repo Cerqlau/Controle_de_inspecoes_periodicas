@@ -54,7 +54,7 @@ Instagram : laurorcerqueira
 
 ## 🛠️ Construído com
 
-* [VBA](https://learn.microsoft.com/en-us/dotnet/visual-basic/)
+* [VBA] https://learn.microsoft.com/en-us/dotnet/visual-basic/
 
 
 ## 📄 Licença

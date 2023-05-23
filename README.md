@@ -54,7 +54,8 @@ Instagram : laurorcerqueira
 
 ## 🛠️ Construído com
 
-* Visual Basic https://learn.microsoft.com/en-us/dotnet/visual-basic/
+* [Microssoft Office Excel](https://docs.microsoft.com/pt-br/office/client-developer/excel/excel-home)
+* [Visual Basic for Applications](https://docs.microsoft.com/pt-br/office/vba/api/overview/)
 
 
 ## 📄 Licença

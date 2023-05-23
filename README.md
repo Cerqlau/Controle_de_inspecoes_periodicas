@@ -15,10 +15,11 @@ Essas instruções permitirão que você obtenha uma cópia do projeto em opera�
 
 ### 🔧 Pré-configurações
 
--> Mantenha a pasta raiz do programa conforme renomeada abaixo afim de evitar erros de destinos.
+1 - Mantenha a pasta raiz do programa conforme renomeada abaixo afim de evitar erros de destinos.
 
+![pasta raiz](https://github.com/Cerqlau/Controle_de_inspecoes_periodicas/assets/87389666/c13a8389-713d-4e29-aa92-93543be7ed22.jpg)
 
--> Senha para edição do projeto: "@Teste"
+2 -  Senha para edição do projeto: "@Teste"
 
 -> Efetue a configuração dos destinatários de mail e texto na sub enviar_email localizada no Module1
 
